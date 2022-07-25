@@ -1,6 +1,7 @@
 package testCases;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.BeforeSuite;
@@ -27,10 +28,15 @@ public class Booking extends BaseClass {
 	@BeforeTest
 	public void removepopup(){
 		//cancelling the signup pop up
-		WebElement popup = driver.findElement(By.xpath("//*[@class=' c-pointer c-neutral-900']"));
-		if(popup.isDisplayed() == true) {
-			popup.click();
+		try {
+			WebElement popup = driver.findElement(By.xpath("//*[@class=' c-pointer c-neutral-900']"));
+			if(popup.isDisplayed() == true) {
+				popup.click();
+			}
+		} catch (NoSuchElementException e) {
+			System.out.println("Popup is not displayed");
 		}
+		
 	}
 	
 	@Test

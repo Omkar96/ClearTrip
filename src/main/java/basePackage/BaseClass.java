@@ -21,9 +21,9 @@ public class BaseClass {
 	public static WebDriver driver;
 	public static WebDriverWait wait;
 	public static Properties prop;
-	
+
 	public BaseClass() {
-		//accessing the properties file
+		// accessing the properties file
 		try {
 			prop = new Properties();
 			FileInputStream ip = new FileInputStream("src/main/java/configPackage/config.properties");
@@ -34,11 +34,12 @@ public class BaseClass {
 			e.printStackTrace();
 		}
 	}
+
 	public static void initialize() {
 		String browserName = prop.getProperty("browser");
-		
-		//opening the desired browser
-		if(browserName.equalsIgnoreCase("chrome")) {
+
+		// opening the desired browser
+		if (browserName.equalsIgnoreCase("chrome")) {
 			WebDriverManager.chromedriver().setup();
 			DesiredCapabilities capabilities = DesiredCapabilities.chrome();
 			ChromeOptions options = new ChromeOptions();
@@ -54,15 +55,15 @@ public class BaseClass {
 		} else if (browserName.equalsIgnoreCase("IE")) {
 			WebDriverManager.iedriver().setup();
 			driver = new InternetExplorerDriver();
-		} 
-		
+		}
+
 		driver.manage().window().maximize();
 		driver.manage().deleteAllCookies();
 		driver.manage().timeouts().implicitlyWait(TestUtil.IMPLICIT_WAIT, TimeUnit.SECONDS);
 		driver.manage().timeouts().pageLoadTimeout(TestUtil.PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
 		wait = new WebDriverWait(driver, TestUtil.EXPLICIT_WAIT);
-		
-		//accessing the clearTrip Website
+
+		// accessing the clearTrip Website
 		driver.get("https://www.cleartrip.com/flights");
 	}
 }
